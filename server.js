@@ -13,16 +13,17 @@ app.use(cors(allowedOrigins.length > 0 ? { origin: allowedOrigins } : {}));
 
 const UNO_API_BASE = process.env.UNO_API_BASE || 'https://api.unorouter.com/v1';
 
-// Keys: UNO_API_KEYS="k1,k2,k3" (plus optional UNO_API_KEY / UNO_API_KEY2 / UNO_API_KEY3)
+// Keys: UNO_API_KEY1, UNO_API_KEY2, UNO_API_KEY3 (also supports UNO_API_KEY and UNO_API_KEYS="k1,k2")
 const UNO_API_KEYS = [
   ...(process.env.UNO_API_KEYS || '').split(','),
   process.env.UNO_API_KEY,
+  process.env.UNO_API_KEY1,
   process.env.UNO_API_KEY2,
   process.env.UNO_API_KEY3
 ].map(k => (k || '').trim()).filter(Boolean);
 
 if (UNO_API_KEYS.length === 0) {
-  console.error('FATAL: No UnoRouter keys configured! Set UNO_API_KEYS.');
+  console.error('FATAL: No UnoRouter keys configured! Set UNO_API_KEY1/2/3.');
 }
 
 // Rotates on every request (every reply)
@@ -34,13 +35,17 @@ function getNextKey() {
 }
 
 const SHOW_REASONING = process.env.SHOW_REASONING === 'true';
-const DEFAULT_MODEL = process.env.DEFAULT_MODEL || 'deepseek-v3';
 
-// Optional aliases: left side is what Chub sends, right side is the UnoRouter model ID.
-// Anything not listed here is passed through unchanged.
+// Left = name shown in Chub's dropdown, right = real UnoRouter model ID.
+// Add more lines as needed. Unlisted names are passed through unchanged.
 const MODEL_MAPPING = {
-  // 'gpt-4': 'deepseek-v3',
+  'gpt-4o': 'gemma-4-31b-it:free'
+  // 'gpt-4': 'UNOROUTER-MODEL-ID',
+  // 'gpt-4-turbo': 'UNOROUTER-MODEL-ID',
+  // 'gpt-3.5-turbo': 'UNOROUTER-MODEL-ID',
 };
+
+const DEFAULT_MODEL = process.env.DEFAULT_MODEL || 'gemma-4-31b-it:free';
 
 const unoClient = axios.create({
   baseURL: UNO_API_BASE,
@@ -178,19 +183,16 @@ app.get('/health', (req, res) => res.json({
   keysConfigured: UNO_API_KEYS.length
 }));
 
-// Forward the real model list from UnoRouter (falls back to aliases if it fails)
-app.get('/v1/models', async (req, res) => {
-  try {
-    const r = await unoClient.get('/models', {
-      headers: { Authorization: `Bearer ${UNO_API_KEYS[0]}` }
-    });
-    res.json(r.data);
-  } catch (e) {
-    res.json({
-      object: 'list',
-      data: Object.keys(MODEL_MAPPING).map(id => ({ id, object: 'model', owned_by: 'unorouter-proxy' }))
-    });
-  }
+app.get('/v1/models', (req, res) => {
+  res.json({
+    object: 'list',
+    data: Object.keys(MODEL_MAPPING).map(id => ({
+      id,
+      object: 'model',
+      created: Math.floor(Date.now() / 1000),
+      owned_by: 'unorouter-proxy'
+    }))
+  });
 });
 
 app.post('/v1/chat/completions', async (req, res) => {
@@ -206,7 +208,6 @@ app.post('/v1/chat/completions', async (req, res) => {
 
     const unoModel = model ? (MODEL_MAPPING[model] || model) : DEFAULT_MODEL;
 
-    // Pass everything through (temperature, top_p, max_tokens, etc.), override model/stream
     const unoRequest = { ...req.body, model: unoModel, stream: Boolean(stream) };
 
     const response = await postWithKeyFallback(unoRequest, {
