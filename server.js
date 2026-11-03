@@ -26,14 +26,6 @@ if (UNO_API_KEYS.length === 0) {
   console.error('FATAL: No UnoRouter keys configured! Set UNO_API_KEY1/2/3.');
 }
 
-// Rotates on every request (every reply)
-let keyIndex = 0;
-function getNextKey() {
-  const key = UNO_API_KEYS[keyIndex % UNO_API_KEYS.length];
-  keyIndex = (keyIndex + 1) % UNO_API_KEYS.length;
-  return key;
-}
-
 const SHOW_REASONING = process.env.SHOW_REASONING === 'true';
 
 // Left = name shown in Chub's dropdown, right = real UnoRouter model ID.
@@ -67,7 +59,13 @@ function checkAuth(req, res) {
   return true;
 }
 
-// Rotates keys; if one fails (rate limit / bad key / out of credit), tries the next
+// Stateless rotation: random start key per request, then try the rest in order.
+// (Serverless instances reset in-memory counters, so a counter can't be trusted on Vercel.)
+function getKeyOrder() {
+  const start = Math.floor(Math.random() * UNO_API_KEYS.length);
+  return UNO_API_KEYS.map((_, i) => UNO_API_KEYS[(start + i) % UNO_API_KEYS.length]);
+}
+
 async function postWithKeyFallback(payload, config) {
   if (UNO_API_KEYS.length === 0) {
     const err = new Error('No UnoRouter keys configured on the server.');
@@ -75,18 +73,18 @@ async function postWithKeyFallback(payload, config) {
     throw err;
   }
   let lastError;
-  for (let i = 0; i < UNO_API_KEYS.length; i++) {
-    const key = getNextKey();
+  const order = getKeyOrder();
+  for (let i = 0; i < order.length; i++) {
     try {
       return await unoClient.post('/chat/completions', payload, {
         ...config,
-        headers: { ...config.headers, Authorization: `Bearer ${key}` }
+        headers: { ...config.headers, Authorization: `Bearer ${order[i]}` }
       });
     } catch (err) {
       lastError = err;
       const status = err.response?.status;
       if (![401, 402, 403, 429].includes(status)) throw err;
-      console.log(`[Key Fallback] Key #${i + 1} failed with ${status}, trying next...`);
+      console.log(`[Key Fallback] Key attempt ${i + 1} failed with ${status}, trying next...`);
     }
   }
   throw lastError;
