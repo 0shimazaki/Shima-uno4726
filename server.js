@@ -33,9 +33,10 @@ const SHOW_REASONING = process.env.SHOW_REASONING === 'true';
 const MODEL_MAPPING = {
   'gemma-4-31b': 'gemma-4-31b-it:free',
   'gemma-4-26b': 'gemma-4-26b:free',
-  'gpt-4-turbo': 'glm-5.3-flash-think-search:free',
-  'gpt-3.5': 'mimo-v2.6-flash:free',
-  'gpt-3.5-turbo': 'step-5-preview:free'
+  'glm-5.3-flash': 'glm-5.3-flash-think-search:free',
+  'mimo-v2.6-flash': 'mimo-v2.6-flash:free',
+  'step-5-preview': 'step-5-preview:free',
+  'pick-one-cucky': 'gpt-4'
   // 'gpt-4': 'UNOROUTER-MODEL-ID',
   // 'gpt-4-turbo': 'UNOROUTER-MODEL-ID',
   // 'gpt-3.5-turbo': 'UNOROUTER-MODEL-ID',
