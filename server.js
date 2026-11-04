@@ -36,6 +36,7 @@ const MODEL_MAPPING = {
   'glm-5.3-flash': 'glm-5.3-flash-think-search:free',
   'mimo-v2.6-flash': 'mimo-v2.6-flash:free',
   'step-5-preview': 'step-5-preview:free',
+  'gemma-4-26b-meromero': 'gemma-4-26b-a4b-it-meromero:free',
   'pick-one-cucky': 'gpt-4'
   // 'gpt-4': 'UNOROUTER-MODEL-ID',
   // 'gpt-4-turbo': 'UNOROUTER-MODEL-ID',
