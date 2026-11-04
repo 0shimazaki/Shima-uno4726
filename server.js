@@ -31,10 +31,10 @@ const SHOW_REASONING = process.env.SHOW_REASONING === 'true';
 // Left = name shown in Chub's dropdown, right = real UnoRouter model ID.
 // Add more lines as needed. Unlisted names are passed through unchanged.
 const MODEL_MAPPING = {
-  'gpt-4o': 'gemma-4-31b-it:free'
-  'gpt-4': 'gemma-4-26b:free'
-  'gpt-4-turbo': 'glm-5.3-flash-think-search:free'
-  'gpt-3.5': 'mimo-v2.6-flash:free'
+  'gemma-4-31b': 'gemma-4-31b-it:free',
+  'gemma-4-26b': 'gemma-4-26b:free',
+  'gpt-4-turbo': 'glm-5.3-flash-think-search:free',
+  'gpt-3.5': 'mimo-v2.6-flash:free',
   'gpt-3.5-turbo': 'step-5-preview:free'
   // 'gpt-4': 'UNOROUTER-MODEL-ID',
   // 'gpt-4-turbo': 'UNOROUTER-MODEL-ID',
