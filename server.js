@@ -38,9 +38,6 @@ const MODEL_MAPPING = {
   'step-5-preview': 'step-5-preview:free',
   'deepseek-v4.1-flash-1017': 'deepseek-v4.1-flash-1017:free',
   'minimax-m3.1-flash': 'minimax-m3.1-flash:free'
-  // 'gpt-4': 'UNOROUTER-MODEL-ID',
-  // 'gpt-4-turbo': 'UNOROUTER-MODEL-ID',
-  // 'gpt-3.5-turbo': 'UNOROUTER-MODEL-ID',
 };
 
 const DEFAULT_MODEL = process.env.DEFAULT_MODEL || 'gemma-4-31b-it:free';
