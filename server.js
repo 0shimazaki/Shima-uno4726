@@ -37,7 +37,7 @@ const MODEL_MAPPING = {
   'gemma-4-12b': 'gemma-4-12b:free',
   'gemini-3.5-flash-lite': 'gemini-3.5-flash-lite:free',
   'gemini-3.6-flash': 'gemini-3.6-flash:free',
-  'glm-5.3-flash': 'glm-5.3-flash-think-search:free',
+  'glm-5.3-flash': 'glm-5.3-flash-search:free',
   'mimo-v2.6-flash': 'mimo-v2.6-flash:free',
   'step-5-preview': 'step-5-preview:free',
   'deepseek-v4.1-flash-1017': 'deepseek-v4.1-flash-1017:free',
