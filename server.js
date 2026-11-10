@@ -38,7 +38,9 @@ const MODEL_MAPPING = {
   'gemini-3.5-flash-lite': 'gemini-3.5-flash-lite:free',
   'gemini-3.6-flash': 'gemini-3.6-flash:free',
   'glm-5.3-flash': 'glm-5.3-flash:free',
+  'glm-4.7-flash': 'glm-4.7-flash:free',
   'mimo-v2.6-flash': 'mimo-v2.6-flash:free',
+  'muse-glimmer-30b': 'muse-glimmer-30b:free',
   'step-5-preview': 'step-5-preview:free',
   'deepseek-v4.1-flash-1017': 'deepseek-v4.1-flash-1017:free',
   'minimax-m3.1-flash': 'minimax-m3.1-flash:free'
