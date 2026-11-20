@@ -48,6 +48,7 @@ const MODEL_MAPPING = {
   'deepseek-v4.1-flash-1017': 'deepseek-v4.1-flash-1017:free',
   'deepseek-v4-flash': 'deepseek-v4-flash:free',
   'kimi-k3.1-pro': 'kimi-k3.1-pro:free',
+  'agnes-3.0-flash': 'agnes-3.0-flash:free',
   'minimax-m3.1-flash': 'minimax-m3.1-flash:free'
 };
 
