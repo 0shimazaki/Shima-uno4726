@@ -34,7 +34,7 @@ const MODEL_MAPPING = {
   'gemma-4-31b': 'gemma-4-31b-it:free',
   'gemma-4-26b': 'gemma-4-26b:free',
   'gemma-4-26b-a4b-it-meromero': 'gemma-4-26b-a4b-it-meromero:free',
-  'gemma-4-12b': 'gemma-4-12b:free'
+  'gemma-4-12b': 'gemma-4-12b:free',
   'gemini-3-flash': 'gemini-3-flash:free',
   'gemini-3.5-flash-lite': 'gemini-3.5-flash-lite:free',
   'gemini-3.6-flash': 'gemini-3.6-flash:free',
