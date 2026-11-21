@@ -37,21 +37,15 @@ const MODEL_MAPPING = {
   'gemma-4-12b': 'gemma-4-12b:free',
   'gemini-3.5-flash-lite': 'gemini-3.5-flash-lite:free',
   'gemini-3.6-flash': 'gemini-3.6-flash:free',
-  'gemini-4-hydrogen': 'gemini-4-hydrogen:free',
   'glm-5.3-flash': 'glm-5.3-flash:free',
   'glm-4.7-flash': 'glm-4.7-flash:free',
-  'claude-haiku-5-5': 'claude-haiku-5-5:free',
   'mimo-v2.6-flash': 'mimo-v2.6-flash:free',
-  'ling-3.2-flash': 'ling-3.2-flash:free',
   'muse-glimmer-30b': 'muse-glimmer-30b:free',
   'step-5-preview': 'step-5-preview:free',
   'deepseek-v4.1-flash-1017': 'deepseek-v4.1-flash-1017:free',
   'deepseek-v4-flash': 'deepseek-v4-flash:free',
   'kimi-k3.1-pro': 'kimi-k3.1-pro:free',
-  'agnes-3.0-flash': 'agnes-3.0-flash:free',
-  'mistral-large-3-675b-instruct-2512': 'mistral-large-3-675b-instruct-2512:free',
-  'syn-pro': 'syn-pro:free',
-  'minimax-m3.1-flash': 'minimax-m3.1-flash:free'
+  'minimax-m2.7': 'minimax-m2.7:free'
 };
 
 const DEFAULT_MODEL = process.env.DEFAULT_MODEL || 'gemma-4-31b-it:free';
