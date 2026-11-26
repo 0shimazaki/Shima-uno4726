@@ -31,7 +31,7 @@ const SHOW_REASONING = process.env.SHOW_REASONING === 'true';
 // Left = name shown in Chub's dropdown, right = real UnoRouter model ID.
 // Add more lines as needed. Unlisted names are passed through unchanged.
 const MODEL_MAPPING = {
-  'gemma-4-31b': 'gemma-4-31b-it:free',
+  'gemma-4-31b': 'gemma-4-31b:free',
   'gemma-4-26b': 'gemma-4-26b:free',
   'gemma-4-26b-a4b-it-meromero': 'gemma-4-26b-a4b-it-meromero:free',
   'gemma-4-12b': 'gemma-4-12b:free',
